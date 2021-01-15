@@ -1,0 +1,20 @@
+/Parent/Childs/Child/Baby[2]
+
+ex. /html/body/div/span/a...
+
+<Parent="Python">
+    <Childs value="A"/>
+        <Child value="A1">
+            <Baby value="001">김</Baby>
+            <Baby value="002">박</Baby>
+            <Baby value="003">선</Baby>
+            <Baby value="004">유</Baby>
+            <Baby value="005">김</Baby>
+        </Child>
+        <Child value="A2">
+        </Child>
+        <Child value="A3">
+        </Child>
+    <Childs value="B"/>
+    <Childs value="C"/>
+</Parent>
