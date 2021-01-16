@@ -37,3 +37,9 @@ lst = p.findall("careless")
 print(lst) # ['care']
 lst = p.findall("good care cafe") 
 print(lst) # ['care', 'cafe']
+
+# 1. p = re.compile("원하는 형태")
+# 2. m = p.match("비교할 문자열") : 주어진 문자열의 처음부터 일치하는 지 확인
+# 3. m = p.search("비교할 문자열") : 주어진 문자열 중에 일치하는 게 있는 지 확인
+# 4. lst = p.findall("비교할 문자열") : 일치하는 모든 것을 list 로 반환
+
