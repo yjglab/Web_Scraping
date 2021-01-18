@@ -23,10 +23,13 @@ def print_match(m):
 # match() : 주어진 문자열의 처음부터 일치하는 지 확인
 m = p.match("case")
 print_match(m) # case => 정규식 p와 매치되어 출력됨. 매치되지 않으면 에러.
+print()
 m = p.match("good care")
 print_match(m) # 매칭되지 않음.
+print()
 m = p.match("careless") 
 print_match(m) # care
+print()
 
 # search() : 주어진 문자열 중에 일치하는 게 있는 지 확인
 m = p.search("good care") 

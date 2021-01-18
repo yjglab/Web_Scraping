@@ -30,7 +30,7 @@ print()
 print(rank1.next_sibling) # 줄바꿈 단계이므로 빈 값을 출력함.
 rank2 = rank1.next_sibling.next_sibling # rank2에 대한 li 정보
 rank3 = rank2.next_sibling.next_sibling
-rank2 = rank2 = rank3.previous_sibling.previous_sibling
+rank2 = rank3.previous_sibling.previous_sibling
 
 rank2 = rank1.find_next_sibling("li") # <-> find_previous_sibling
 print(rank2.a.get_text())

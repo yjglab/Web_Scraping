@@ -12,5 +12,5 @@ else:
     print("문제가 발생했습니다. [에러코드 ", res.status_code, "]")
 
 
-with open("mygoogle.html", "w", encoding="utf8") as f:
+with open("myscrap.html", "w", encoding="utf8") as f:
     f.write(res.text)
