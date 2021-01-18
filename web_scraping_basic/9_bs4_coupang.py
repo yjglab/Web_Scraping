@@ -21,19 +21,31 @@ for item in items: # 모든 노트북 상품 정보 가져오기
     if ad_badge:
         print("  ⚠광고 상품은 제외합니다")
         continue
-    
+
     name = item.find("div", attrs={"class":"name"}).get_text() # 제품명
     price = item.find("strong", attrs={"class":"price-value"}).get_text()
+    
+    # 리뷰 100개 이상, 평점 4.5 이상만 조회
     rating = item.find("em", attrs={"class":"rating"})
     if rating: 
         rating = rating.get_text()
     else:
-        rating = "||No rated||"
+        rating = "No rated"
+        print("  ⚠평점이 없는 상품은 제외합니다")
+        continue
+
     rating_cnt = item.find("span", attrs={"class":"rating-total-count"})
     if rating_cnt: 
-            rating_cnt = rating_cnt.get_text()
+        rating_cnt = rating_cnt.get_text() # ex. (56)
+        rating_cnt = rating_cnt[1:-1]
+        # print("리뷰 수", rating_cnt)
     else:
-            rating_cnt = "||No rating Count||"
-    print(name, price, rating, rating_cnt)
-    print()
+        rating_cnt = "No rating Count"
+        print("  ⚠평점 수가 없는 상품은 제외합니다")
+        continue
+
+    if float(rating) >= 4.5 and int(rating_cnt) >= 50:
+        print(name, price, rating, rating_cnt)
+    
+    
     
