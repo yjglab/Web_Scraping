@@ -18,10 +18,11 @@ for page in range(1, 5):
 
     soup = BeautifulSoup(res.text, "lxml")
     data_rows = soup.find("table", attrs={"class":"type_2"}).find("tbody").find_all("tr")
+    
     for row in data_rows:
         columns = row.find_all("td")
         if len(columns) <= 1: # 무의미한 줄 바꿈 용 데이터 skip
             continue
-        data = [column.get_text().strip() for column in columns]
+        data = [column.get_text().strip() for column in columns] # strip() : 불필요한 공백 제거용
         
         writer.writerow(data) # writerow() 넣을 시 list 형태로 값을 넣어주어야 함.

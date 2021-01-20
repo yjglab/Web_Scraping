@@ -33,7 +33,7 @@ print(browser.page_source) # 현재 페이지의 모든 html문서 출력
 browser.close() # 현재 탭만 종료
 browser.quit()
 
-# 변수.find_element_by_name("h1") : h1 태그의 정보 저장
+# 변수.find_element_by_name("text") : name이 text인 태그의 정보 저장
 # 변수.find_element_by_xpath("경로") : xpath 정보 저장 (경로 찾기 : 저장 하려는 태그에 우클릭 - copy - xpath)
 # 변수.find_element_by_class_name("클래스명")
 # 변수.find_element_by_id("id명")
