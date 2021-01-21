@@ -22,6 +22,7 @@ while True:
     time.sleep(interval)
 
     curr_height = browser.execute_script("return document.body.scrollHeight")
+    print(curr_height)
     if curr_height == prev_height:
         break
     
