@@ -1,6 +1,11 @@
-
 from selenium import webdriver
-browser = webdriver.Chrome()
+
+# 크롬을 백그라운드에서 작동하기
+options = webdriver.ChromeOptions()
+options.headless = True
+options.add_argument("window-size=1920x1080") # 내부적으로 fhd 크기로 작동
+
+browser = webdriver.Chrome(options=options) # 옵션 적용
 browser.maximize_window()
 
 url = "https://play.google.com/store/movies/top"
@@ -28,6 +33,7 @@ while True:
     prev_height = curr_height
 
 print("스크롤 완료")
+browser.get_screenshot_as_file("google_movie.png") # 백그라운드에서 스크롤 완료되었을 때의 화면을 캡쳐.
 
 
 # 할인 된 영화 정보 스크래핑
