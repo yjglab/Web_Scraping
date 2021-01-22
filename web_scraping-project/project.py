@@ -3,12 +3,21 @@
 import requests
 from bs4 import BeautifulSoup
 
+def create_soup(url):
+    headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"}
+    res = requests.get(url, headers=headers)
+    res.raise_for_status()
+    soup = BeautifulSoup(res.text, "lxml")
+    return soup
+
+def print_news(idx, title, link):
+    print("{}. {}".format(idx + 1, title))
+    print("  (링크 : {})".format(link))
+    
 def scrape_weather():
     print("<오늘의 날씨 - 평택>")
     url = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=%ED%8F%89%ED%83%9D+%EB%82%A0%EC%94%A8"
-    res = requests.get(url)
-    res.raise_for_status()
-    soup = BeautifulSoup(res.text, "lxml")
+    soup = create_soup(url)
     
     # 날씨
     cast = soup.find("p", attrs={"class":"cast_txt"}).get_text()
@@ -34,5 +43,42 @@ def scrape_weather():
     print("초미세먼지 {}".format(pm25))
     print()
 
+
+def scrape_headline_news():
+    print("<헤드라인 뉴스>")
+    url = "https://news.naver.com"
+    soup = create_soup(url)
+    news_list = soup.find("ul", attrs={"class":"hdline_article_list"}).find_all("li", limit=3)
+    for idx, news in enumerate(news_list):
+        title = news.find("a").get_text().strip()
+        link = url + news.find("a")["href"]
+        print_news(idx, title, link)
+
+    print()
+
+def scrape_it_news():
+    print("<IT 뉴스>")
+    url = "https://news.naver.com/main/list.nhn?mode=LS2D&mid=shm&sid1=105&sid2=230"
+    soup = create_soup(url)
+    news_list = soup.find("ul", attrs={"class":"type06_headline"}).find_all("li", limit=3)
+    for idx, news in enumerate(news_list):
+        a_idx = 0
+        img = news.find("img")
+        if img:
+            a_idx = 1 # img 태그가 있으면 1번째 img 태그의 정보를 사용
+
+        a_tag = news.find_all("a")[a_idx]
+        title = a_tag.get_text().strip()
+        link = a_tag["href"]
+        print_news(idx, title, link)
+    print()
+
+
+
+
+
 if __name__ == "__main__": # 이 프로젝트를 직접 실행하는 지
-    scrape_weather() # 오늘의 날씨 정보 호출
+    # scrape_weather() # 오늘의 날씨 정보 호출
+    # scrape_headline_news() # 헤드라인 뉴스 정보 호출
+    # scrape_it_news() # IT 뉴스 정보 호출
+    
