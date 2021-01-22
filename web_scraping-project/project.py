@@ -1,5 +1,5 @@
-# [오늘의 날씨]
 
+import re
 import requests
 from bs4 import BeautifulSoup
 
@@ -15,7 +15,8 @@ def print_news(idx, title, link):
     print("  (링크 : {})".format(link))
     
 def scrape_weather():
-    print("<오늘의 날씨 - 평택>")
+    print("🌞 오늘의 날씨 - 평택")
+    print("_"*100)
     url = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=%ED%8F%89%ED%83%9D+%EB%82%A0%EC%94%A8"
     soup = create_soup(url)
     
@@ -45,7 +46,8 @@ def scrape_weather():
 
 
 def scrape_headline_news():
-    print("<헤드라인 뉴스>")
+    print("🔊 헤드라인 뉴스")
+    print("_"*100)
     url = "https://news.naver.com"
     soup = create_soup(url)
     news_list = soup.find("ul", attrs={"class":"hdline_article_list"}).find_all("li", limit=3)
@@ -57,7 +59,8 @@ def scrape_headline_news():
     print()
 
 def scrape_it_news():
-    print("<IT 뉴스>")
+    print("📺 IT 뉴스")
+    print("_"*100)
     url = "https://news.naver.com/main/list.nhn?mode=LS2D&mid=shm&sid1=105&sid2=230"
     soup = create_soup(url)
     news_list = soup.find("ul", attrs={"class":"type06_headline"}).find_all("li", limit=3)
@@ -73,12 +76,23 @@ def scrape_it_news():
         print_news(idx, title, link)
     print()
 
-
+def scrape_english():
+    print("📖 오늘의 영어 회화")
+    print("_"*100)
+    url = "https://www.hackers.co.kr/?c=s_eng/eng_contents/I_others_english&keywd=haceng_submain_lnb_eng_I_others_english&logger_kw=haceng_submain_lnb_eng_I_others_english"
+    soup = create_soup(url)
+    sentences = soup.find_all("div", attrs={"id":re.compile("^conv_kor_t")})
+    print("영어 지문")
+    for sentence in sentences[len(sentences)//2:]:
+        print(sentence.get_text().strip())
+    print("한글 지문")
+    for sentence in sentences[:len(sentences)//2]:
+        print(sentence.get_text().strip())
 
 
 
 if __name__ == "__main__": # 이 프로젝트를 직접 실행하는 지
-    # scrape_weather() # 오늘의 날씨 정보 호출
-    # scrape_headline_news() # 헤드라인 뉴스 정보 호출
-    # scrape_it_news() # IT 뉴스 정보 호출
-    
+    scrape_weather() # 오늘의 날씨 정보 호출
+    scrape_headline_news() # 헤드라인 뉴스 정보 호출
+    scrape_it_news() # IT 뉴스 정보 호출
+    scrape_english() # 영어 회화 정보 호출 
