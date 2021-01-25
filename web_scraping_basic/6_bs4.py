@@ -11,6 +11,7 @@ res = requests.get(url)
 res.raise_for_status()
 
 soup = BeautifulSoup(res.text, "lxml") # res.text -> html 문서 / html문서를 lxml파서를 통해 BeautifulSoup 객체로 생성하여 저장
+
 print(soup.title) # <title>네이버 만화 &gt; 요일별  웹툰 &gt; 전체웹툰</title>
 print(soup.title.get_text()) # 네이버 만화 > 요일별  웹툰 > 전체웹툰
 print(soup.a) # 첫번째로 발견된 a태그의 정보 출력
